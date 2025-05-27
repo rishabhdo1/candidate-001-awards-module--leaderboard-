@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     points: i.submissions * 2 + i.votes * 1 + i.referrals * 3
   })).sort((a, b) => b.points - a.points);
 
-  res.json(leaderboard);
+ res.status(200).json(leaderboard);
   console.log(`Leaderboard fetched for period: ${period}`);
   console.log('Leaderboard data:', leaderboard);
 });
