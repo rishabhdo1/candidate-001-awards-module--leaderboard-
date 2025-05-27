@@ -1,7 +1,15 @@
-
-// File: api/leaderboard.js
-
 export default function handler(req, res) {
+  // Set CORS headers
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle preflight request
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  // Your existing logic
   const influencers = [
     { id: "INF_001", submissions: 10, votes: 50, referrals: 5 },
     { id: "INF_002", submissions: 5, votes: 30, referrals: 10 },
