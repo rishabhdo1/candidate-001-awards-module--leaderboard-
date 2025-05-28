@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Influencer Leaderboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f2f4f8;
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+ 
+    table {
+      width: 60%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #4f46e5;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+  <h2> Monthly Influencer Leaderboard</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Influencer ID</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboard-body">
+
+    </tbody>
+  </table>
+
+  <script>
+   fetch('https://candidate-001-awards-module-leaderboard-zz59.vercel.app/api/leaderboard?period=monthly')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.getElementById('leaderboard-body');
+        data.forEach(entry => {
+          const row = `<tr><td>${entry.influencerId}</td><td>${entry.points}</td></tr>`;
+          tbody.innerHTML += row;
+        });
+      })
+      .catch(err => {
+        document.getElementById('leaderboard-body').innerHTML = 
+          `<tr><td colspan="2">Failed to load leaderboard.</td></tr>`;
+        console.error(err);
+      });
+  </script>
+
+</body>
+</html>
